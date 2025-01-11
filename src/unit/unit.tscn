@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://bbue4e3hdx0ot"]
+
+[ext_resource type="Script" path="res://src/unit/unit.gd" id="1_a7fcp"]
+[ext_resource type="PackedScene" uid="uid://c07hwc7vihhh0" path="res://src/unit/health_bar/health_bar.tscn" id="2_5jqod"]
+[ext_resource type="Texture2D" uid="uid://bprslj2b5xvr4" path="res://src/unit/sprite/Test_animation.png" id="2_iw4fs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_alpyu"]
+atlas = ExtResource("2_iw4fs")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mu6us"]
+atlas = ExtResource("2_iw4fs")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ek7ek"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_alpyu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mu6us")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="Unit" type="Node2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_a7fcp")
+
+[node name="Health bar" parent="." instance=ExtResource("2_5jqod")]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ek7ek")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.0549264
