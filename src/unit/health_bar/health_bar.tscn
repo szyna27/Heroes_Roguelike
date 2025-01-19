@@ -1,6 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://c07hwc7vihhh0"]
+[gd_scene load_steps=3 format=3 uid="uid://c07hwc7vihhh0"]
 
 [ext_resource type="Script" path="res://src/unit/health_bar/health_bar.gd" id="1_jkath"]
+[ext_resource type="Texture2D" uid="uid://cop347lkllnww" path="res://src/unit/health_bar/hp_bar_blue.png" id="2_17fhh"]
 
 [node name="Health bar" type="Node2D"]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_jkath")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("2_17fhh")
+
+[node name="Unit amount label" type="Label" parent="."]
+offset_left = 4.0
+offset_top = 18.0
+offset_right = 52.0
+offset_bottom = 41.0
+scale = Vector2(0.5, 0.5)
+text = "1000"
+horizontal_alignment = 1

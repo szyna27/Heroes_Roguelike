@@ -27,13 +27,13 @@ animations = [{
 }]
 
 [node name="Unit" type="Node2D"]
-scale = Vector2(2, 2)
+scale = Vector2(4, 4)
 script = ExtResource("1_a7fcp")
-
-[node name="Health bar" parent="." instance=ExtResource("2_5jqod")]
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ek7ek")
 animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.0549264
+
+[node name="Health bar" parent="." instance=ExtResource("2_5jqod")]
