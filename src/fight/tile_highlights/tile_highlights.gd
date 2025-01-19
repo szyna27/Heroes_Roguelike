@@ -26,6 +26,9 @@ var attackable_tiles_sprites: Array
 var attackable_tiles: Array
 var active: bool = false
 
+signal enter_unit(unit: Unit)
+signal exit_unit
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	connect_signals()
@@ -55,6 +58,7 @@ func _input(event):
 # Highligth the tile
 func highlight_tile(tile: Dictionary) -> void:
 	delete_highlight()
+	exit_unit.emit()
 	current_tile_position = tile["position"]
 	current_tile_side = tile["side"]
 	if tile["position"].x < 0 or tile["position"].y < 0 or tile["position"].x >= Global.MAP_SIZE.x or tile["position"].y >= Global.MAP_SIZE.y:
@@ -75,6 +79,10 @@ func highlight_tile(tile: Dictionary) -> void:
 		current_tile_sprite.texture = highlight_texture
 		current_tile_sprite.position = tile["position"] * Global.TILE_SIZE
 	add_child(current_tile_sprite)
+
+	var focused_unit = units.get_unit_at_tile(tile["position"])
+	if focused_unit:
+		enter_unit.emit(focused_unit)
 
 # Delete the highlight_texture
 func delete_highlight():

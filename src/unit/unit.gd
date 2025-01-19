@@ -1,8 +1,6 @@
 class_name Unit
 extends Node2D
 
-signal unit_dead(unit)
-
 @export var current_tile: Vector2i
 @export var max_hp: int
 @export var hp: int
@@ -35,9 +33,8 @@ func set_stats(kwargs: Dictionary) -> void:
 	ranged = kwargs["ranged"]
 	health_bar.update_unit_count(unit_count)
 
-func take_damage(damage_before_defence: float) -> void:
-	var damage_amount = int(damage_before_defence * (1 - defense * 0.03))
-	while damage_amount > 0 and unit_count > 0:
+func take_damage(damage_amount: int) -> void:
+	while damage_amount > 0 and unit_count >= 0:
 		if hp > damage_amount:
 			hp -= damage_amount
 			damage_amount = 0
@@ -47,7 +44,7 @@ func take_damage(damage_before_defence: float) -> void:
 			hp = max_hp
 
 	if unit_count <= 0:
-		unit_dead.emit(self)
+		Global.unit_dead.emit(self)
 	else:
 		health_bar.update_unit_count(unit_count)
 

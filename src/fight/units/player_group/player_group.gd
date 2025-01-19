@@ -1,46 +1,15 @@
 class_name PlayerGroup
-extends Node2D
-
-@onready var highlights = $"../../Tile highlights"
-@onready var units = get_parent()
-
-const UNIT = preload("res://src/unit/unit.tscn")
-
-var units_alive: Array = []
+extends Group
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
-func spawn_units(count: int):
-	for i in range(count):
-		var unit = UNIT.instantiate()
-		units_alive.append(unit)
-		add_child(unit)
-		unit.set_health_bar_color("blue")
-		unit.set_stats({
-			"max_hp": 1,
-			"hp": 1,
-			"unit_count": 10,
-			"damage": 1,
-			"attack": 1,
-			"defense": 1,
-			"speed": 3,
-			"ranged": false
-		})
-		unit.position = Vector2(0, i * Global.TILE_SIZE)
-		unit.current_tile = Vector2i(0, i)
+func get_color() -> String:
+	return "blue"
 
-func get_unit_at_tile(tile: Vector2i) -> Unit:
-	for unit in get_children():
-		if unit.current_tile == tile:
-			return unit
-	return null
+func get_unit_position(i: int) -> Vector2:
+	return Vector2(0, i * Global.TILE_SIZE)
 
-func atack_unit(tile: Dictionary, unit: Unit) -> void:
-	var attacked_unit = units.get_unit_at_tile(tile["position"])
-	if attacked_unit:
-		attacked_unit.take_damage(unit.damage * (1 + unit.attack * 0.05))
-		if unit.unit_count <= 0:
-			units_alive.erase(unit)
-			unit.queue_free()
+func get_tile(i: int) -> Vector2i:
+	return Vector2i(0, i)
